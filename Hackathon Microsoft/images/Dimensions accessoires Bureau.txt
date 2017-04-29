@@ -6,16 +6,24 @@ clavier : 36.6 x 16.8cm
 
 souris: 9.5 x 5.8 cm
 
-Ècran : 57.52 x 6.35cm
+√©cran : 57.52 x 6.35cm
 
-tasse : 8 cm de diamËtre
+tasse : 8 cm de diam√®tre
 
 mouse pad : 21 x 18 cm
 
 laptop : 36 x 31.4 cm
 
-plante de bureau : 12cm de diamËtre
+plante de bureau : 12cm de diam√®tre
 
 caseFolder : 15.1 x 11.75cm
 
-boite ‡ crayons : 7.5 cm de diamËtre
+boite √† crayons : 7.5 cm de diam√®tre
+
+t√©l√©phone fixe : 19 x 15 cm
+
+t√©l√©phone portable : 12.5 x 6.7 cm
+
+bloc note : 15.2 x 8 cm
+
+cadre photo : 10 x 2.8 cm
