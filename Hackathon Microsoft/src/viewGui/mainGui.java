@@ -1,5 +1,7 @@
 package viewGui;
 
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Graphics2D;
 import java.awt.Panel;
 import java.awt.RenderingHints;
@@ -26,6 +28,8 @@ import javax.swing.TransferHandler;
 import model.AccessoireBureau;
 
 public class mainGui extends JFrame {
+	
+	private Component target;
 	
 	public static boolean actifGenerate = true;
 	public static File image1 = new File(System.getProperty("user.dir") + "\\src\\viewGui\\250px-Pikachu-RFVF.png");
@@ -59,26 +63,49 @@ public class mainGui extends JFrame {
 		f.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Destination du drag");
-		lblNewLabel.setBounds(0, 196, 298, 0);
-		panel_1.add(lblNewLabel);
-		
-		JTextField dest = new JTextField();
-		dest.setBounds(88, 52, 128, 73);
-		dest.setDragEnabled(true);
-		panel_1.add(dest);
-		
-		JLabel lblNewLabel_1 = new JLabel("A deplacer");
+		JLabel lblNewLabel_1 = new JLabel();
 		lblNewLabel_1.setBounds(434, 55, 181, 66);
 		lblNewLabel_1.setIcon(icon);
-	    lblNewLabel_1.setTransferHandler(new TransferHandler("text"));
-	    lblNewLabel_1.addMouseListener(new MouseAdapter(){
-	    	public void mousePressed(MouseEvent e){          
-	        JComponent lab = (JComponent)e.getSource();
-	        TransferHandler handle = lab.getTransferHandler();
-	        handle.exportAsDrag(lab, e, TransferHandler.COPY);
-	      }
-	    });
+		panel_1.addMouseListener(new MouseAdapter() {
+		    public void mousePressed(MouseEvent e) {
+		        Container container = (Container) e.getComponent();
+		        for (Component c : container.getComponents()) {
+		            if (c.getBounds().contains(e.getPoint())) {
+		                target = c;
+		                break;
+		            }
+		        }
+		    }
+		    public void mouseDragged(MouseEvent e) {
+		        if (target != null) {
+		            target.setBounds(e.getX(), e.getY(), target.getWidth(), target.getHeight());
+		            e.getComponent().repaint();
+		            }
+		    }
+		    public void mouseReleased(MouseEvent e) {
+		        target = null;
+		    }
+		});
+		panel_1.addMouseMotionListener(new MouseAdapter() {
+		    public void mousePressed(MouseEvent e) {
+		        Container container = (Container) e.getComponent();
+		        for (Component c : container.getComponents()) {
+		            if (c.getBounds().contains(e.getPoint())) {
+		                target = c;
+		                break;
+		            }
+		        }
+		    }
+		    public void mouseDragged(MouseEvent e) {
+		        if (target != null) {
+		            target.setBounds(e.getX(), e.getY(), target.getWidth(), target.getHeight());
+		            e.getComponent().repaint();
+		            }
+		    }
+		    public void mouseReleased(MouseEvent e) {
+		        target = null;
+		    }
+		});
 		panel_1.add(lblNewLabel_1);
 		
 		JButton btnNewButton = new JButton("G\u00E9n\u00E9rer");
