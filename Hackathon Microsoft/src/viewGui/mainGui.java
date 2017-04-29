@@ -11,23 +11,26 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.TransferHandler;
 
 import model.AccessoireBureau;
 
 public class mainGui extends JFrame {
 	
 	public static boolean actifGenerate = true;
-	public static File image1 = new File("D:\\Workspace_Java\\Hackathon Microsoft\\src\\viewGui\\250px-Pikachu-RFVF.png");
-	public static File image2 = new File("D:\\Workspace_Java\\Hackathon Microsoft\\images\\gobelet.png");
+	public static File image1 = new File(System.getProperty("user.dir") + "\\src\\viewGui\\250px-Pikachu-RFVF.png");
+	public static File image2 = new File(System.getProperty("user.dir") +  "\\images\\gobelet.png");
+	ImageIcon icon = new ImageIcon(System.getProperty("user.dir") +  "\\images\\gobelet.png");
 	
 	public mainGui(){
 		super();
@@ -36,8 +39,10 @@ public class mainGui extends JFrame {
 	}
 	
 	public void maFenetre(){
+
 		JFrame f = new JFrame("Mon Jframe");
 		f.setSize(1080, 720);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.getContentPane().setBackground(SystemColor.inactiveCaption);
 		f.getContentPane().setLayout(null);
 		
@@ -52,13 +57,36 @@ public class mainGui extends JFrame {
 		Panel panel_1 = new Panel();
 		panel_1.setBounds(154, 88, 851, 460);
 		f.getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Destination du drag");
+		lblNewLabel.setBounds(0, 196, 298, 0);
+		panel_1.add(lblNewLabel);
+		
+		JTextField dest = new JTextField();
+		dest.setBounds(88, 52, 128, 73);
+		dest.setDragEnabled(true);
+		panel_1.add(dest);
+		
+		JLabel lblNewLabel_1 = new JLabel("A deplacer");
+		lblNewLabel_1.setBounds(434, 55, 181, 66);
+		lblNewLabel_1.setIcon(icon);
+	    lblNewLabel_1.setTransferHandler(new TransferHandler("text"));
+	    lblNewLabel_1.addMouseListener(new MouseAdapter(){
+	    	public void mousePressed(MouseEvent e){          
+	        JComponent lab = (JComponent)e.getSource();
+	        TransferHandler handle = lab.getTransferHandler();
+	        handle.exportAsDrag(lab, e, TransferHandler.COPY);
+	      }
+	    });
+		panel_1.add(lblNewLabel_1);
 		
 		JButton btnNewButton = new JButton("G\u00E9n\u00E9rer");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				/** panel_1.removeAll();
-				panel_1.add(new JLabel(new ImageIcon("D:\\Workspace_Java\\Hackathon Microsoft\\src\\viewGui\\250px-Pikachu-RFVF.png")));
+				panel_1.add(new JLabel(new ImageIcon(System.getProperty("user.dir") + "\\src\\viewGui\\250px-Pikachu-RFVF.png")));
 				panel_1.revalidate(); **/
 				panel_1.removeAll();
 				try {
@@ -119,7 +147,7 @@ public class mainGui extends JFrame {
 		g2d.dispose(); 
 	  
 		try {
-			ImageIO.write(image1, "PNG", new File("D:\\Workspace_Java\\Hackathon Microsoft\\src\\viewGui\\filename.png"));
+			ImageIO.write(image1, "PNG", new File(System.getProperty("user.dir") + "\\src\\viewGui\\filename.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
